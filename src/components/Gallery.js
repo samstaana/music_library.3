@@ -6,8 +6,8 @@ function Gallery (props) {
 
     const data = useContext(DataContext)
 
-    const display = props.data.map((song, index) => 
-    <GalleryItem song={song} key={index} />)
+    const display = props.data.map((song, i) => 
+    <GalleryItem song={song} key={i} />)
 
     return (
         <div>
