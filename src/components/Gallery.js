@@ -4,7 +4,7 @@ import GalleryItem from './GalleryItem';
 
 function Gallery (props) {
 
-    const data = useContext(DataContext)
+    const data = props.data.result.read()
 
     const display = props.data.map((song, i) => 
     <GalleryItem song={song} key={i} />)

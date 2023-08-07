@@ -1,17 +1,19 @@
 import './App.css';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Gallery from './components/Gallery';
 import SearchBar from './components/SearchBar';
 import { DataContext } from './context/DataContext';
 import AlbumView from './components/AlbumView';
 import ArtistView from './components/ArtistView';
+import { createResource as fetchData } from './helper';
+import Spinner from './components/Spinner';
 
 function App() {
 
   const [ search, setSearch ] = useState('')
   const [ message, setMessage ] = useState('Search for Music!')
-  const [ data, setData ] = useState([])
+  const [ data, setData ] = useState(null)
 
   const API_URL = 'https://itunes.apple.com/search?term='
 
@@ -36,15 +38,26 @@ function App() {
     setSearch(term)
   }
 
+  const renderGallery = () => {
+    if(data) {
+      return (
+        <Suspense fallback={<Spinner />}>
+          <Gallery data = {data} />
+        </Suspense>
+        
+      )
+    }
+  }
+
   return (
     <div className="App">
-      { message }
       <Router>
         <Routes>
           <Route path='/' element={
             <Fragment>
               <SearchBar handleSearch = {handleSearch} />
-              <Gallery data={data} />
+              { message }
+              { renderGallery() }
             </Fragment>
           } />
           <Route path="/album/:id" element={<AlbumView />}/>
