@@ -1,7 +1,8 @@
 import { useState } from "react";
 
 function GalleryItem(props) {
-    let [ viewDetails, setViewDetails ] = useState(false)
+    
+    const [ viewDetails, setViewDetails ] = useState(false)
 
     const simpleStyle = {
         'width': '25vw',

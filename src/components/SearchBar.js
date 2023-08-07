@@ -1,7 +1,8 @@
 import { useState } from "react";
 
 function SearchBar(props) {
-    let [ searchTerm, setSearchTerm ] = useState('')
+    
+    const [ searchTerm, setSearchTerm ] = useState('')
     
     return (
         <form onSubmit={(e) => props.handleSearch(e, searchTerm)}>
